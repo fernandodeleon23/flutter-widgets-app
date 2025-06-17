@@ -24,7 +24,7 @@ class AppTheme {
 		useMaterial3: true,
 		colorSchemeSeed: colorList[selectedColor],
 		appBarTheme: AppBarTheme(
-			centerTitle: false
+			centerTitle: true
 		),
 		brightness: Brightness.dark
 	);
