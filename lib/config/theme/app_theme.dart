@@ -26,6 +26,6 @@ class AppTheme {
 		appBarTheme: AppBarTheme(
 			centerTitle: true
 		),
-		brightness: Brightness.dark
+		//brightness: Brightness.dark
 	);
 }
