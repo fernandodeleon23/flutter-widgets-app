@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widgets_app/config/theme/app_theme.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
@@ -11,7 +12,7 @@ class ThemeChangerScreen extends ConsumerWidget {
     @override
     Widget build(BuildContext context, WidgetRef ref) {
 
-        final bool isDarkMode = ref.watch(isDarkModeProvider);
+        final bool isDarkMode = ref.watch( themeNotifierProvider ).isDarkMode;
 
         return Scaffold(
 
@@ -24,7 +25,9 @@ class ThemeChangerScreen extends ConsumerWidget {
                         icon: Icon(isDarkMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
 						onPressed: () {
 
-                            ref.read(isDarkModeProvider.notifier).update((state) => !state);
+							ref.read( themeNotifierProvider.notifier ).toggleDarkMode();
+
+                            //ref.read(isDarkModeProvider.notifier).update((state) => !state);
                         },
                     )
                 ],
@@ -41,7 +44,9 @@ class _ThemeChangerView extends ConsumerWidget {
     Widget build(BuildContext context, WidgetRef ref) {
 
 		final List<Color> colors = ref.watch( colorListProvider );
-		final int selectedColor = ref.watch( selectedColorProvider );
+		
+		//final int selectedColor = ref.watch( selectedColorProvider );
+		final AppTheme appTheme = ref.watch( themeNotifierProvider );
 
         return ListView.builder(
 			itemCount: colors.length,
@@ -54,12 +59,13 @@ class _ThemeChangerView extends ConsumerWidget {
 					subtitle: Text('${ color.r }'),
 					activeColor: color,
 					value: index,
-					groupValue: selectedColor,
+					groupValue: appTheme.selectedColor,
 					onChanged: (value){
 
 						// Notificar el cambio
+						//ref.read( selectedColorProvider.notifier ).state = index;
 
-						ref.read( selectedColorProvider.notifier ).state = index;
+						ref.read( themeNotifierProvider.notifier ).changeColorIndex( index );
 					}
 				);
 

@@ -26,7 +26,7 @@ class CounterScreen extends ConsumerWidget {
 					IconButton(
 						onPressed: (){
 
-							ref.read( isDarkModeProvider.notifier ).update( (state)=> !state );
+							ref.read( themeNotifierProvider.notifier ).toggleDarkMode();
 						},
 						icon: Icon( isDarkMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined )
 					)
